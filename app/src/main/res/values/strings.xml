@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Juegos</string>
+    <string name="opciones_juegos">What game do you want to play?</string>
+    <string name="descricion_juego">Join the numbers and get to the 2048 title</string>
+    <string name="play3x3">2048 3x3</string>
+    <string name="play4x4">2048 4x4</string>
+    <string name="play5x5">2048 5x5</string>
+    <string name="playLights">Lights On</string>
+    <string name="settings">Settings</string>
+    <string name="menu_scores">View Scores</string>
+    <string name="web">Company website</string>
+    <string name="view_scores">View Score</string>
+</resources>
