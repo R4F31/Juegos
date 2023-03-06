@@ -112,8 +112,16 @@ public class J2048_4X4 extends AppCompatActivity {
     }
 
 
-
-    //Metodo para asignar un numero en una posicion aleatoria
+    /**
+     * This method assigns the number 2 to a random position that is empty. What it does is check if
+     * there are empty positions, if there are, it creates two random numbers that will be X and Y
+     * and if the XY position is an empty position, it will assign the number 2 there, otherwise it
+     * will generate another random position.
+     * In addition, this method checks if the game is over by checking if there are empty positions
+     * and calling the MoverArriba() and moverAlLado() methods, checking that none of the pieces can
+     * be joined. In this case the game would be terminated and the score would be saved in the
+     * database.
+     */
     public void asignarNumero(){
         boolean guardarDatos = true;
         boolean hay_posiciones_vacias = false;
@@ -162,7 +170,14 @@ public class J2048_4X4 extends AppCompatActivity {
     }
 
 
-    //Mover piezas
+    /**
+     *
+     * @param arrayJuego
+     * This method goes through the ArrayJuego matrix and if the text is empty it moves the numbers
+     * upwards until it is the limit of the board or it is already occupied by another number.
+     * In addition, if two pieces are next to each other in the direction of movement, add the value
+     * of the two equal pieces and leave one of the pieces with an empty value.
+     */
     public void moverArriba(TextView arrayJuego[][]){
         for (int i = 0; i < arrayJuego.length; i++) {
             for (int j = 0; j < arrayJuego[i].length; j++) {
@@ -190,6 +205,14 @@ public class J2048_4X4 extends AppCompatActivity {
         puntos.setText(String.valueOf(puntuacion));
     }
 
+    /**
+     *
+     * @param arrayJuego
+     * This method goes through the ArrayJuego matrix and if the text is empty it moves the numbers
+     * down until it is the limit of the board or it is already occupied by another number.
+     * In addition, if two pieces are next to each other in the direction of movement, add the value
+     * of the two equal pieces and leave one of the pieces with an empty value.
+     */
     public void moverAbajo(TextView arrayJuego[][]){
         for (int i = 0; i < arrayJuego.length; i++) {
             for (int j = arrayJuego[i].length-1; j >=0 ; j--) {
@@ -218,6 +241,15 @@ public class J2048_4X4 extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param arrayJuego
+     * This method goes through the ArrayJuego matrix and if the text is empty it moves the numbers
+     * to the right side until it is the limit of the board on the right or it is already occupied
+     * by another number.
+     * In addition, if two pieces are next to each other in the direction of movement, add the value
+     * of the two equal pieces and leave one of the pieces with an empty value.
+     */
     public void deslizarALadoDerecha(TextView[][] arrayJuego){
         for (int i = 0; i < arrayJuego.length; i++) {
             for (int j = arrayJuego[i].length-1; j >=0 ; j--) {
@@ -244,6 +276,15 @@ public class J2048_4X4 extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param arrayJuego
+     * This method goes through the ArrayJuego matrix and if the text is empty it moves the numbers
+     * to the left side until it is the limit of the board on the left or it is already occupied by
+     * another number.
+     * In addition, if two pieces are next to each other in the direction of movement, add the value
+     * of the two equal pieces and leave one of the pieces with an empty value.
+     */
     public void deslizarALadoIzq(TextView arrayJuego[][]){
         for (int i = 0; i < arrayJuego.length; i++) {
             for (int j = 0; j < arrayJuego[i].length; j++) {
@@ -271,6 +312,12 @@ public class J2048_4X4 extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param arrayJuego
+     * This method goes through the ArrayJuego matrix and depending on the value it contains in each
+     * position, it assigns a different shape for each value.
+     */
     public void cambiarColor(TextView arrayJuego[][]) {
         for (int i = 0; i < arrayJuego.length; i++) {
             for (int j = 0; j < arrayJuego[i].length; j++) {
@@ -303,20 +350,14 @@ public class J2048_4X4 extends AppCompatActivity {
         }
     }
 
-
-/*
-    public void volverMovimientoAnterior() {
-        for (int i = 0; i < arrayJuego.length; i++) {
-            for (int j = 0; j < arrayJuego[i].length; j++) {
-                arrayJuego[i][j].setText(arrayAnterior[i][j].getText());
-                cambiarColor(arrayJuego);
-            }
-
-        }
-    }
-
- */
-
+    /**
+     *
+     * @param arrayJuego
+     * @return boolean value
+     *
+     * This method checks if two pieces could be joined by moving upwards. This method returns a
+     * boolean value and is used to check if the game has finished in the asignarNumero() method.
+     */
     public Boolean movimientoArriba(TextView arrayJuego[][]){
         Boolean movimientoDisponible = false;
         for (int i = 0; i < arrayJuego.length; i++) {
@@ -335,6 +376,14 @@ public class J2048_4X4 extends AppCompatActivity {
         return  movimientoDisponible;
     }
 
+    /**
+     *
+     * @param arrayJuego
+     * @return boolean value
+     *
+     *  This method checks if two pieces could be joined by moving to the side. This method returns
+     *  a boolean value and is used to check if the game has finished in the asignarNumero() method.
+     */
     public Boolean movimientoAlLado(TextView arrayJuego[][]){
         Boolean movimientoDisponible = false;
         for (int i = 0; i < arrayJuego.length; i++) {
@@ -352,6 +401,10 @@ public class J2048_4X4 extends AppCompatActivity {
         return movimientoDisponible;
     }
 
+    /**
+     * This method is used to update the support matrix with a movement prior to the current matrix
+     * where the game is executed.
+     */
     public void actualizarVolverAtras(){
         for (int i=0;i<arrayJuego.length;i++){
             for (int j=0;j<arrayJuego[i].length;j++){
@@ -359,6 +412,11 @@ public class J2048_4X4 extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * What this method will do is return the current matrix that is being played to the backup
+     * matrix that saves the matrix from a previous movement.
+     */
 
     public void movimientoAtras(){
         for (int i=0;i<arrayJuego.length;i++){
